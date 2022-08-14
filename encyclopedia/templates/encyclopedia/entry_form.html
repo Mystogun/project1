@@ -1,0 +1,47 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia | {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% if create %}
+        <h1>Create New Wiki Entry</h1>
+        <form action="{% url 'store' %}" method="post" class="col-8">
+            {% csrf_token %}
+            <label for="title" class="form-label">Title:</label>
+            <br>
+            <input id="title" type="text" name="title" class="form-control">
+
+            <br>
+
+            <label for="content" class="form-label">Content:</label>
+            <br>
+            <textarea id="content" name="content" class="form-control" style="height: 50vh"></textarea>
+
+            <br>
+            <input type="submit" value="Create" class="btn btn-success">
+        </form>
+
+    {% else %}
+        <h1>Edit Wiki Entry</h1>
+        <form action="{% url 'save' %}" method="post" class="col-8">
+            {% csrf_token %}
+
+            <label for="title">Title:</label>
+            <br>
+            <input id="title" type="text" value="{{ title }}" class="form-control" disabled>
+            <input id="title" type="text" name="title" value="{{ title }}" class="form-control" hidden>
+
+            <br>
+
+            <label for="content">Content:</label>
+            <br>
+            <textarea id="content" name="content" class="form-control" rows="10" style="white-space: break-spaces">{{ content }}</textarea>
+
+            <br>
+            <input type="submit" value="Edit" class="btn btn-primary">
+        </form>
+    {% endif %}
+
+{% endblock %}
