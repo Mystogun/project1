@@ -24,7 +24,6 @@
         </form>
 
     {% else %}
-        <h1>Edit Wiki Entry</h1>
         <form action="{% url 'save' %}" method="post" class="col-8">
             {% csrf_token %}
 
